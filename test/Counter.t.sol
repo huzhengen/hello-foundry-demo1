@@ -6,23 +6,23 @@ import {LogicCounter} from "../src/LogicCounter.sol";
 import {ProxyCounter} from "../src/ProxyCounter.sol";
 
 contract CounterTest is Test {
-  LogicCounter public logic;
-  ProxyCounter public proxy;
+    LogicCounter public logic;
+    ProxyCounter public proxy;
 
-  function setUp() public {
-    logic = new LogicCounter();
-    proxy = new ProxyCounter(address(logic));
-  }
+    function setUp() public {
+        logic = new LogicCounter();
+        proxy = new ProxyCounter(address(logic));
+    }
 
-  function testDirectIncrement() public {
-    logic.increment();
-    assertEq(logic.number(), 1);
-  }
+    function testDirectIncrement() public {
+        logic.increment();
+        assertEq(logic.number(), 1);
+    }
 
-  function testDelegateCallIncrement() public {
-    proxy.incrementViaDelegate();
+    function testDelegateCallIncrement() public {
+        proxy.incrementViaDelegate();
 
-    assertEq(proxy.number(), 1);
-    assertEq(logic.number(), 0);
-  }
+        assertEq(proxy.number(), 1);
+        assertEq(logic.number(), 0);
+    }
 }

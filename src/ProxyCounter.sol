@@ -6,14 +6,12 @@ contract ProxyCounter {
 
     address public logicCounterAddress;
 
-    constructor(address _loginCounterAddress){
-      logicCounterAddress = _loginCounterAddress;
+    constructor(address _loginCounterAddress) {
+        logicCounterAddress = _loginCounterAddress;
     }
 
     function incrementViaDelegate() external {
-      (bool success, ) = logicCounterAddress.delegatecall(
-        abi.encodeWithSignature("increment()")
-      );
-      require(success, "Delegatecall failed");
+        (bool success,) = logicCounterAddress.delegatecall(abi.encodeWithSignature("increment()"));
+        require(success, "Delegatecall failed");
     }
 }
